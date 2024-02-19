@@ -5,7 +5,6 @@ description = "Checkpoint migration utility"
 authors = ["bdvllrs <bdvllrs@gmail.com>"]
 license = "MIT"
 readme = "README.md"
-packages = [{include = "migrate_ckpt"}]
 
 [tool.poetry.dependencies]
 python = "^3.11"
