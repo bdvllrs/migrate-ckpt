@@ -10,6 +10,15 @@ readme = "README.md"
 python = "^3.11"
 torch = ">=1.13.0,<4.0"
 
+[tool.poetry.group.dev.dependencies]
+types-pywin32 = "^306.0.0.2"
+types-setuptools = "^67.8.0.0"
+flake8 = "^6.0.0"
+mypy = "^1.4.0"
+isort = "^5.13.2"
+
+[tool.poetry.group.test.dependencies]
+pytest = "^7.3.2"
 
 
 [build-system]
