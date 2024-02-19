@@ -1,3 +1,5 @@
+from typing import Any
+
 from migrate_ckpt.migrate import Migration, ckpt_migration_key, migrate_ckpt
 
 
@@ -23,7 +25,7 @@ update_test_migration = Migration(name="update_test", callback=update_test_callb
 
 
 def test_missing_fields():
-    ckpt = {}
+    ckpt: dict[str, Any] = {}
     new_ckpt = migrate_ckpt(ckpt, [blank_migration])
     assert ckpt_migration_key in new_ckpt
     assert isinstance(new_ckpt[ckpt_migration_key], list)
