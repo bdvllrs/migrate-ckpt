@@ -1,0 +1,33 @@
+[tool.poetry]
+name = "migrate-ckpt"
+version = "0.1.0"
+description = "Checkpoint migration utility"
+authors = ["bdvllrs <bdvllrs@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+packages = [{include = "migrate_ckpt"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+
+[tool.isort]
+profile = "black"
+line_length = 88
+py_version = 311
+known_third_party = ["wandb"]
+
+
+[tool.black]
+line-length = 88
+
+
+[tool.mypy]
+ignore_missing_imports = true
+install_types = true
+check_untyped_defs = true
