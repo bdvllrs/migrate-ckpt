@@ -1,6 +1,6 @@
 from typing import Any
 
-from migrate_ckpt.migrate import Migration, ckpt_migration_key, migrate_ckpt
+from migrate_ckpt import Migration, ckpt_migration_key, migrate_ckpt
 
 
 def identity_callback(x):
