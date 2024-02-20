@@ -31,3 +31,8 @@ ckpt, done_migrations = migrate_ckpt(
 # This has no effect, the model was already migrated.
 ckpt_2, _ = migrate_ckpt(ckpt, model_migrations)
 ```
+
+Note: the list of migration to perform is determined by the last done migration.
+Missed migration in between will never be done.
+For example, if migrations to do are ["0", "1", "2"] and model has already had migration
+"1", only "2" will be done, but not "0".
