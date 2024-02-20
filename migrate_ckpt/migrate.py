@@ -44,7 +44,7 @@ def _mark_ckpt(ckpt: CkptType, migration: Migration) -> CkptType:
 def migrate_ckpt(
     ckpt: CkptType,
     migrations: Sequence[Migration],
-) -> CkptType:
+) -> tuple[CkptType, Sequence[Migration]]:
     """
     Migrate checkpoint using provided migrations
     Args:
@@ -55,4 +55,4 @@ def migrate_ckpt(
     for migration in missing_migrations:
         ckpt = migration.callback(ckpt)
         ckpt = _mark_ckpt(ckpt, migration)
-    return ckpt
+    return ckpt, missing_migrations

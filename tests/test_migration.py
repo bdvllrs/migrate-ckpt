@@ -26,7 +26,7 @@ update_test_migration = Migration(name="update_test", callback=update_test_callb
 
 def test_missing_fields():
     ckpt: dict[str, Any] = {}
-    new_ckpt = migrate_ckpt(ckpt, [blank_migration])
+    new_ckpt, _ = migrate_ckpt(ckpt, [blank_migration])
     assert ckpt_migration_key in new_ckpt
     assert isinstance(new_ckpt[ckpt_migration_key], list)
     assert len(new_ckpt[ckpt_migration_key]) == 1
@@ -34,13 +34,13 @@ def test_missing_fields():
 
 
 def test_missing_one_migration():
-    ckpt = migrate_ckpt({}, [blank_migration])
-    new_ckpt = migrate_ckpt(ckpt, [blank2_migration])
+    ckpt, _ = migrate_ckpt({}, [blank_migration])
+    new_ckpt, _ = migrate_ckpt(ckpt, [blank2_migration])
     assert new_ckpt[ckpt_migration_key][1] == "blank2"
 
 
 def test_execute_migration():
-    ckpt = migrate_ckpt(
+    ckpt, _ = migrate_ckpt(
         {},
         [add_field_migration],
     )
@@ -49,7 +49,7 @@ def test_execute_migration():
 
 
 def test_execute_related_migrations():
-    ckpt = migrate_ckpt(
+    ckpt, _ = migrate_ckpt(
         {},
         [add_field_migration, update_test_migration],
     )
