@@ -1,4 +1,5 @@
 from collections.abc import MutableMapping, Sequence
+from copy import deepcopy
 from dataclasses import dataclass
 from typing import Any, Callable, TypeAlias
 
@@ -57,6 +58,6 @@ def migrate_ckpt(
     """
     missing_migrations = get_missing_migrations(ckpt, migrations)
     for migration in missing_migrations:
-        ckpt = migration.callback(ckpt)
+        ckpt = migration.callback(deepcopy(ckpt))
         ckpt = _mark_ckpt(ckpt, migration)
     return ckpt, missing_migrations
