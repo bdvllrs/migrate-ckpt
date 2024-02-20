@@ -18,7 +18,7 @@ jobs:
             poetry install --with dev
       - name: isort
         run: |
-            poetry run isort --profile=black --check-only --diff --line-length=88 simple_shapes_dataset playground
+            poetry run isort --profile=black --check-only --diff --line-length=88 .
       - uses: psf/black@stable
         with:
           src: "."
