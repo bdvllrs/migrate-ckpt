@@ -55,3 +55,16 @@ def test_execute_related_migrations():
     )
     assert "test" in ckpt
     assert ckpt["test"] == "nok"
+
+
+def test_execute_missed_migrations():
+    ckpt, _ = migrate_ckpt(
+        {},
+        [blank_migration, add_field_migration],
+    )
+    assert len(ckpt[ckpt_migration_key]) == 2
+    new_ckpt, _ = migrate_ckpt(
+        ckpt, [blank_migration, blank2_migration, add_field_migration]
+    )
+    assert len(new_ckpt[ckpt_migration_key]) == 2
+    assert blank2_migration.name not in new_ckpt[ckpt_migration_key]
