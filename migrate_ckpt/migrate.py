@@ -28,7 +28,10 @@ def get_missing_migrations(
     if ckpt_migration_key not in ckpt:
         return list(migrations)
     done_migrations = ckpt[ckpt_migration_key]
-    return [mig for mig in migrations if mig.name not in done_migrations]
+    for k, mig in enumerate(reversed(migrations)):
+        if mig.name in done_migrations:
+            return list(migrations[k + 1 :])
+    return list(migrations)
 
 
 def _mark_ckpt(ckpt: CkptType, migration: Migration) -> CkptType:
