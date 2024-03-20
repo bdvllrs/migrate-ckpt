@@ -5,6 +5,7 @@ from .migrate import (
     Migration,
     MigrationCallback,
     ckpt_migration_key,
+    get_folder_migrations,
     migrate_ckpt,
     migrate_from_folder,
 )
@@ -18,4 +19,5 @@ __all__ = [
     "ckpt_migration_key",
     "migrate_ckpt",
     "migrate_from_folder",
+    "get_folder_migrations",
 ]

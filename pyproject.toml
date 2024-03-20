@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "migrate-ckpt"
-version = "0.1.0"
+version = "0.1.1"
 description = "Checkpoint migration utility"
 authors = ["bdvllrs <bdvllrs@gmail.com>"]
 license = "MIT"
