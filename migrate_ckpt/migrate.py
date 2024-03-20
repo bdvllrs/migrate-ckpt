@@ -65,7 +65,7 @@ def migrate_ckpt(
     return ckpt, missing_migrations
 
 
-def get_folder_migrations(path: PathLike) -> list[Migration]:
+def get_folder_migrations(path: str | PathLike) -> list[Migration]:
     migrations: list[Migration] = []
 
     for file in sorted(Path(path).iterdir()):
@@ -86,6 +86,6 @@ def get_folder_migrations(path: PathLike) -> list[Migration]:
 
 
 def migrate_from_folder(
-    ckpt: CkptType, path: PathLike
+    ckpt: CkptType, path: str | PathLike
 ) -> tuple[CkptType, Sequence[Migration]]:
     return migrate_ckpt(ckpt, get_folder_migrations(path))
