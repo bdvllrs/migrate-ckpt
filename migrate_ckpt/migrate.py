@@ -1,6 +1,9 @@
 from collections.abc import MutableMapping, Sequence
 from copy import deepcopy
 from dataclasses import dataclass
+from importlib.util import module_from_spec, spec_from_file_location
+from os import PathLike
+from pathlib import Path
 from typing import Any, Callable, TypeAlias
 
 ckpt_migration_key = "_migrate-ckpt-migrations"
@@ -60,3 +63,29 @@ def migrate_ckpt(
         ckpt = migration.callback(deepcopy(ckpt))
         ckpt = _mark_ckpt(ckpt, migration)
     return ckpt, missing_migrations
+
+
+def get_folder_migrations(path: PathLike) -> list[Migration]:
+    migrations: list[Migration] = []
+
+    for file in sorted(Path(path).iterdir()):
+        if not file.is_file() and file.suffix != ".py":
+            continue
+        migration_spec = spec_from_file_location("handle", file)
+        if migration_spec is None or migration_spec.loader is None:
+            continue
+        migration_mod = module_from_spec(migration_spec)
+        migration_spec.loader.exec_module(migration_mod)
+        migrations.append(
+            Migration(
+                name=file.stem,
+                callback=migration_mod.handle,
+            )
+        )
+    return migrations
+
+
+def migrate_from_folder(
+    ckpt: CkptType, path: PathLike
+) -> tuple[CkptType, Sequence[Migration]]:
+    return migrate_ckpt(ckpt, get_folder_migrations(path))

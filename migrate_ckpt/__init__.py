@@ -6,6 +6,7 @@ from .migrate import (
     MigrationCallback,
     ckpt_migration_key,
     migrate_ckpt,
+    migrate_from_folder,
 )
 
 __version__ = importlib.metadata.version("migrate-ckpt")
@@ -16,4 +17,5 @@ __all__ = [
     "MigrationCallback",
     "ckpt_migration_key",
     "migrate_ckpt",
+    "migrate_from_folder",
 ]
